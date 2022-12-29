@@ -1,7 +1,7 @@
 use crate::class::Student;
 
 pub struct Population {
-    population: Vec<Genotype>,
+    pub population: Vec<Genotype>,
 }
 impl Population {
     pub fn new(students: Vec<Student>, num_groups: usize) -> Population {

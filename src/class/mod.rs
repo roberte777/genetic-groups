@@ -1,3 +1,5 @@
+use std::fmt::{Display, Error, Formatter};
+
 #[derive(Clone)]
 pub struct Student {
     pub name: String,
@@ -10,5 +12,11 @@ impl Student {
             name,
             blocked_grouping: blocked_grouping.unwrap_or(Vec::new()),
         }
+    }
+}
+
+impl Display for Student {
+    fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+        write!(f, "{}", self.name)
     }
 }
