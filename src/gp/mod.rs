@@ -69,7 +69,46 @@ mod tests {
             Student::new("Y".to_string(), None),
             Student::new("Z".to_string(), None),
         ];
-        let mut population = Population::new(students, 2);
-        assert_eq!(population.population.len(), 0);
+        let population = Population::new(students, 2);
+        assert_eq!(population.population.len(), 10);
+    }
+    #[test]
+    fn test_genotype_sizes() {
+        let students = vec![
+            Student::new("A".to_string(), None),
+            Student::new("B".to_string(), None),
+            Student::new("C".to_string(), None),
+            Student::new("D".to_string(), None),
+            Student::new("E".to_string(), None),
+            Student::new("F".to_string(), None),
+            Student::new("G".to_string(), None),
+            Student::new("H".to_string(), None),
+            Student::new("I".to_string(), None),
+            Student::new("J".to_string(), None),
+            Student::new("K".to_string(), None),
+            Student::new("L".to_string(), None),
+            Student::new("M".to_string(), None),
+            Student::new("N".to_string(), None),
+            Student::new("O".to_string(), None),
+            Student::new("P".to_string(), None),
+            Student::new("Q".to_string(), None),
+            Student::new("R".to_string(), None),
+            Student::new("S".to_string(), None),
+            Student::new("T".to_string(), None),
+            Student::new("U".to_string(), None),
+            Student::new("V".to_string(), None),
+            Student::new("W".to_string(), None),
+            Student::new("X".to_string(), None),
+            Student::new("Y".to_string(), None),
+            Student::new("Z".to_string(), None),
+        ];
+        let population = Population::new(students, 2);
+        for genotype in population.population {
+            assert_eq!(
+                genotype.groupings[0].len() + genotype.groupings[1].len(),
+                26
+            );
+            assert_eq!(genotype.groupings.len(), 2);
+        }
     }
 }

@@ -1,3 +1,4 @@
+#[derive(Clone)]
 pub struct Student {
     pub name: String,
     pub blocked_grouping: Vec<Student>,
