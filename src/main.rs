@@ -32,11 +32,11 @@ fn main() {
         Student::new("Y".to_string(), None),
         Student::new("Z".to_string(), None),
     ];
-    let population = Population::new(students, 2);
+    let population = Population::new(students, 4);
     for (i, genotype) in population.population.iter().enumerate() {
         println!("Genotype {}", i);
         for (i, grouping) in genotype.groupings.iter().enumerate() {
-            println!("Grouping {}", i);
+            println!("Grouping {}", i + 1);
             println!(
                 "{:?}",
                 grouping
