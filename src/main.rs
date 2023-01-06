@@ -1,7 +1,7 @@
 use genetic_groups::{class::Student, gp::Population};
 
 fn main() {
-    //first thing is to determine how to structure the classes and seed the
+    //initial population seeded, now I need to set up the configs so I don't hardcode values
     //initial population
 
     let students = vec![
