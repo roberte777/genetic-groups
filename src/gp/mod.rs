@@ -1,11 +1,22 @@
 use crate::class::Student;
+use serde::Deserialize;
+#[derive(Debug, Deserialize)]
+pub struct Settings {
+    population_settings: PopulationSettings,
+}
+#[derive(Debug, Deserialize)]
+pub struct PopulationSettings {
+    population_size: usize,
+}
 
 pub struct Population {
     pub population: Vec<Genotype>,
 }
 impl Population {
-    pub fn new(students: Vec<Student>, num_groups: usize) -> Population {
-        let initial_population = 10;
+    pub fn new(students: Vec<Student>, num_groups: usize, config_file: &str) -> Population {
+        let file = std::fs::File::open(config_file).expect("file should exist");
+        let settings: Settings = serde_yaml::from_reader(file).expect("valid config");
+        let initial_population = settings.population_settings.population_size;
         let mut population = Vec::with_capacity(initial_population);
         for _ in 0..initial_population {
             population.push(Genotype::rand(&students, &num_groups));
@@ -38,6 +49,7 @@ impl Genotype {
 #[cfg(test)]
 mod tests {
     use super::*;
+    const TEST_CONFIG_FILE: &str = "./src/configs/first.yaml";
 
     #[test]
     fn test_new_population() {
@@ -69,8 +81,13 @@ mod tests {
             Student::new("Y".to_string(), None),
             Student::new("Z".to_string(), None),
         ];
-        let population = Population::new(students, 2);
-        assert_eq!(population.population.len(), 10);
+        let file = std::fs::File::open(TEST_CONFIG_FILE).expect("file should exist");
+        let settings: Settings = serde_yaml::from_reader(file).expect("valid config");
+        let population = Population::new(students, 2, TEST_CONFIG_FILE);
+        assert_eq!(
+            population.population.len(),
+            settings.population_settings.population_size
+        );
     }
     #[test]
     fn test_genotype_sizes() {
@@ -102,7 +119,7 @@ mod tests {
             Student::new("Y".to_string(), None),
             Student::new("Z".to_string(), None),
         ];
-        let population = Population::new(students, 2);
+        let population = Population::new(students, 2, "./src/configs/first.yaml");
         for genotype in population.population {
             assert_eq!(
                 genotype.groupings[0].len() + genotype.groupings[1].len(),

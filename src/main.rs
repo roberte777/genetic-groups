@@ -1,7 +1,6 @@
 use genetic_groups::{class::Student, gp::Population};
 
 fn main() {
-    //initial population seeded, now I need to set up the configs so I don't hardcode values
     //initial population
 
     let students = vec![
@@ -32,7 +31,7 @@ fn main() {
         Student::new("Y".to_string(), None),
         Student::new("Z".to_string(), None),
     ];
-    let population = Population::new(students, 4);
+    let population = Population::new(students, 4, "./src/configs/first.yaml");
     for (i, genotype) in population.population.iter().enumerate() {
         println!("Genotype {}", i);
         for (i, grouping) in genotype.groupings.iter().enumerate() {
